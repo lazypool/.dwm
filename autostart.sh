@@ -11,6 +11,3 @@ source $DWM/videowall.sh &
 # enable picom
 picomconf="$HOME/.config/picom/picom.conf"
 picom --experimental-backends --backend glx --config $picomconf &
-
-# use fcitx5
-fcitx5 -d
