@@ -35,11 +35,33 @@ However, the volume setting is still disabled, please refer to "Volume setting" 
 
 ## Functions
 
-### Keyboards map
+### Chinese input
 
 dwm won't run before autostart\_blocking.sh exits, hence we can only write programs that will automatically exit here.
 
-I put my keyboards map at this file naturally:
+The chinese input is supported by fcitx5, which will be called by this file.
+
+Running fcitx5 will change keyboard map, so waiting for a certain amount of time is necessary.
+
+```
+fcitx5 -d
+
+sleep 0.05
+```
+
+It's recommended to set the following environment variables in /etc/environment:
+
+```
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
+```
+
+### Keyboards map
+
+I also put my keyboards map at autostart\_blocking.sh naturally:
 
 ```
 setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
@@ -68,20 +90,6 @@ $ cp picom/picom.conf $HOME/.config/picom/picom.conf
 ```
 
 You can also customize the conf as you like.
-
-### Chinese input
-
-The chinese input is supported by fcitx5, which will be called by autostart.sh.
-
-It's recommended to set the following environment variables in /etc/environment:
-
-```
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-GLFW_IM_MODULE=ibus
-```
 
 ### Volume setting
 
