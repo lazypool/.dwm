@@ -2,7 +2,7 @@
 
 # The Video Name/Path
 name="Coffee"
-path="$HOME/Wallpaper/DynamicWall/$name"
+path="$DWM/videos/$name"
 
 if [ ! -d "/tmp/wallpaper" ];then
 	mkfifo /tmp/wallpaper
