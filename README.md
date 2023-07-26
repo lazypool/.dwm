@@ -64,7 +64,7 @@ autostart.sh will call the picom function.
 You should copy the conf to $HOME/.conf/picom/picom.conf
 
 ```
-$ cp picom/picom.conf $HOME/.conf/picom/picom.conf
+$ cp picom/picom.conf $HOME/.config/picom/picom.conf
 ```
 
 You can also customize the conf as you like.
