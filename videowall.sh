@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The Video Name/Path
-name="Coffee"
+name="01fructose.mp4"
 path="$DWM/videos/$name"
 
 if [ ! -d "/tmp/wallpaper" ];then

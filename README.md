@@ -15,6 +15,7 @@ So please ensure that the dwm with autostart patch has been installed before you
 
 Except dwm, other pkgs are also needed for the extral functions:
 
+- feh
 - xwinwarp
 - mplayer
 - picom
@@ -35,18 +36,30 @@ However, the volume setting is still disabled, please refer to "Volume setting" 
 
 ## Functions
 
+### Background Image
+
+dwm won't run before autostart_blocking.sh exits, hence we can only write programs that will automatically exit here.
+
+Call feh to put the background picture here is a good idea:
+
+```
+feh --bg-scale $DWM/videos/01fructose.jpg
+```
+
 ### Chinese input
 
-dwm won't run before autostart\_blocking.sh exits, hence we can only write programs that will automatically exit here.
-
-The chinese input is supported by fcitx5, which will be called by this file.
+The chinese input is supported by fcitx5, which will also be called by autostart_blocking.sh.
 
 Running fcitx5 will change keyboard map, so waiting for a certain amount of time is necessary.
 
 ```
 fcitx5 -d
 
-sleep 0.05
+state=$(fcitx5-remote)
+while(( $state == 0 ))
+do
+	state=$(fcitx5-remote)
+done
 ```
 
 It's recommended to set the following environment variables in /etc/environment:
@@ -61,7 +74,7 @@ GLFW_IM_MODULE=ibus
 
 ### Keyboards map
 
-I also put my keyboards map at autostart\_blocking.sh naturally:
+I also put my keyboards map at autostart_blocking.sh:
 
 ```
 setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
@@ -69,7 +82,7 @@ setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv
 
 ### Os info print
 
-autostart.sh will call dwm\_refresh.sh and print infomation of computer on dwm bar, such as datetime, battery and volume.
+autostart.sh will call dwm_refresh.sh and print infomation of computer on dwm bar, such as datetime, battery and volume.
 
 ### Video wall
 
@@ -83,7 +96,7 @@ To change video displayed, you need to do a little change to the videowall.sh.
 
 autostart.sh will call the picom function.
 
-You should copy the conf to $HOME/.conf/picom/picom.conf
+You should copy the conf to $HOME/.config/picom/picom.conf
 
 ```
 $ cp picom/picom.conf $HOME/.config/picom/picom.conf
