@@ -2,7 +2,7 @@
 
 export DWM=$(cd $(dirname $0);pwd)
 
-feh --bg-scale $DWM/videos/01fructose.jpg
+feh --bg-scale $DWM/pictures/01fructose.jpg
 
 fcitx5 -d
 
