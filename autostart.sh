@@ -3,11 +3,14 @@
 export DWM=$(cd $(dirname $0);pwd)
 
 # print status on bar
-source $DWM/dwm_refresh.sh &
+exec -a dwm_refresh $DWM/dwm_refresh.sh &
 
 # activate dynamic wallpaper
-source $DWM/videowall.sh &
+exec -a videowall $DWM/videowall.sh &
 
 # enable picom
-picomconf="$HOME/.config/picom/picom.conf"
-picom --experimental-backends --backend glx --config $picomconf &
+picomconf="$DWM/picom/picom.conf"
+exec -a picom picom --experimental-backends --backend glx --config $picomconf &
+
+# start clash
+exec -a clash clash -f $HOME/.config/clash/download.yml
