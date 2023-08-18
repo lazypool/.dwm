@@ -2,14 +2,6 @@
 
 export DWM=$(cd $(dirname $0);pwd)
 
-feh --bg-scale $DWM/pictures/01fructose.jpg
+setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
 
 fcitx5 -d
-
-state=$(fcitx5-remote)
-while(( $state == 0 ))
-do
-	state=$(fcitx5-remote)
-done
-
-setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
