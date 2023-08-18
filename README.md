@@ -15,7 +15,6 @@ So please ensure that the dwm with autostart patch has been installed before you
 
 Except dwm, other pkgs are also needed for the extral functions:
 
-- feh
 - xwinwarp
 - mplayer
 - picom
@@ -36,30 +35,26 @@ However, the volume setting is still disabled, please refer to "Volume setting" 
 
 ## Functions
 
-### Background Image
+### Keyboards map
 
 dwm won't run before autostart_blocking.sh exits, hence we can only write programs that will automatically exit here.
 
-Call feh to put the background picture here is a good idea:
+I put my keyboards map at autostart_blocking.sh like this:
 
 ```
-feh --bg-scale $DWM/videos/01fructose.jpg
+setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
 ```
 
 ### Chinese input
 
 The chinese input is supported by fcitx5, which will also be called by autostart_blocking.sh.
 
-Running fcitx5 will change keyboard map, so waiting for a certain amount of time is necessary.
+Running fcitx5 will change keyboard map by default, so you need to use 'fcitx5-config-qt' to configure.
+
+To configure, the 'Allow Overriding System XKB Settings' must be unchecked.
 
 ```
 fcitx5 -d
-
-state=$(fcitx5-remote)
-while(( $state == 0 ))
-do
-	state=$(fcitx5-remote)
-done
 ```
 
 It's recommended to set the following environment variables in /etc/environment:
@@ -72,37 +67,42 @@ SDL_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 ```
 
-### Keyboards map
-
-I also put my keyboards map at autostart_blocking.sh:
-
-```
-setxkbmap -layout us -variant colemak -option -option caps:swapescape -option lv3:ralt_alt
-```
-
 ### Os info print
 
 autostart.sh will call dwm_refresh.sh and print infomation of computer on dwm bar, such as datetime, battery and volume.
+
+```
+exec -a dwm_refresh $DWM/dwm_refresh.sh &
+```
 
 ### Video wall
 
 autostart.sh will call videowall.sh and display video at background to realize the dynamic wallpaper.
 
+```
+exec -a videowall $DWM/videowall.sh &
+```
+
 All videos are saved in videos/, please feel free to add or delete them.
 
 To change video displayed, you need to do a little change to the videowall.sh.
+
+```
+# The Video Name/Path
+name="01fructose.mp4"
+path="$DWM/videos/$name"
+```
 
 ### Picom render
 
 autostart.sh will call the picom function.
 
-You should copy the conf to $HOME/.config/picom/picom.conf
-
 ```
-$ cp picom/picom.conf $HOME/.config/picom/picom.conf
+picomconf="$DWM/picom/picom.conf"
+exec -a picom picom --experimental-backends --backend glx --config $picomconf &
 ```
 
-You can also customize the conf as you like.
+You can customize the conf file as you like.
 
 ### Volume setting
 
@@ -110,7 +110,7 @@ Normally the dwm don't support the shortcut keys to set volume.
 
 Feel free to skip this section if you're not using the dwm from [here](https://github.com/lazypool/dwm)
 
-lazypools' build of dwm uses the 'MODKEY + Shift + ]' to increase volume and 'MODKEY + Shift + [' to reduce volume.
+lazypool's build of dwm uses the 'MODKEY + Shift + ]' to increase volume and 'MODKEY + Shift + [' to reduce volume.
 
 You just need to copy the increasevolume.sh and reducevolume.sh to bin:
 
