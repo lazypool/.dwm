@@ -6,7 +6,8 @@ export DWM=$(cd $(dirname $0);pwd)
 exec -a dwm_refresh $DWM/dwm_refresh.sh &
 
 # activate dynamic wallpaper
-exec -a videowall $DWM/videowall.sh &
+feh --bg-fill $DWM/pictures/01me.jpg &
+#exec -a videowall $DWM/videowall.sh &
 
 # enable picom
 picomconf="$DWM/picom/picom.conf"

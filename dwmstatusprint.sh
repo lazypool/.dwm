@@ -33,9 +33,9 @@ check_connect(){
 	line=$(grep $interface /proc/net/dev | cut -d ':' -f 2 | awk '{print "received_bytes="$1, "transmitted_bytes="$9}')
 	sped=$(echo $line | sed -r "s/.*=(.*).*/\1/")
 	if [ "$sped" -eq 0 ]; then
-		printf ""
+		printf "󰖩"
 	else 
-		printf ""
+		printf "󰖪"
 	fi
 }
 
@@ -48,9 +48,9 @@ dwm_alsa () {
 	VOLSTAT=$(amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\] \[(.*)\]/\2/")
     printf "%s" "$SEP1"
     if [ "$VOL" -eq 0 ] || [ "$VOLSTAT" = "off" ]; then
-        printf "婢"
+        printf "󰖁"
     else
-        printf "墳 %s%%" "$VOL"
+        printf "󱄠 %s%%" "$VOL"
     fi
     printf "%s\n" "$SEP2"
 }
